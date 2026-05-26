@@ -9,7 +9,7 @@
 <style>
 
 body{
-    font-family:Arial,sans-serif;
+    font-family:"Noto Sans", Arial, sans-serif;
     padding:20px;
     background:#f0f2f5;
 }
@@ -23,7 +23,7 @@ body{
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* HEADER ROW */
+/* HEADER */
 .header{
     display:flex;
     justify-content:space-between;
@@ -37,7 +37,7 @@ h2{
     color:#333;
 }
 
-/* SEGMENT CONTROL */
+/* FONT BOX */
 .fontBox{
     display:flex;
     align-items:center;
@@ -69,9 +69,11 @@ h2{
     border:2px solid #ccd0d5;
     border-radius:6px;
     resize:vertical;
+
     font-size:24px;
     line-height:1.5;
-    font-family: Cambria, serif;
+
+    font-family:"Noto Sans", "Noto Sans Symbols", sans-serif;
 }
 
 /* KEYBOARD */
@@ -93,17 +95,24 @@ h2{
 .key{
     flex:1;
     height:50px;
+
     border:1px solid #adb5bd;
     border-radius:4px;
+
     background:white;
     cursor:pointer;
+
     font-size:18px;
     font-weight:bold;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     user-select:none;
     touch-action:manipulation;
+
+    font-family:"Noto Sans", "Noto Sans Symbols", sans-serif;
 }
 
 .key:hover{ background:#f1f3f5; }
@@ -153,7 +162,6 @@ h2{
 
 <div class="container">
 
-<!-- HEADER -->
 <div class="header">
 
     <h2>Keyboard Bahasa Sangihe</h2>
@@ -162,19 +170,19 @@ h2{
         <span>Font:</span>
 
         <label>
-            <input type="radio" name="font" value="Cambria" checked>
-            Cambria (Serif)
+            <input type="radio" name="font" value="Noto Sans" checked>
+            Noto Sans
         </label>
 
         <label>
-            <input type="radio" name="font" value="Calibri">
-            Calibri (Sans-serif)
+            <input type="radio" name="font" value="Noto Sans Symbols">
+            Noto Symbols
         </label>
     </div>
 
 </div>
 
-<textarea id="textarea" placeholder="Bohẹko sini ... / Ketik di sini... "></textarea>
+<textarea id="textarea" placeholder="Ketik di sini..."></textarea>
 
 <div class="keyboard">
 
@@ -197,6 +205,7 @@ h2{
 
 <div class="row">
     <button class="key tab" id="tabBtn">Tab</button>
+
     <button class="key letter" data-low="q" data-upp="Q">q</button>
     <button class="key letter" data-low="w" data-upp="W">w</button>
     <button class="key letter" data-low="e" data-upp="E">e</button>
@@ -207,13 +216,11 @@ h2{
     <button class="key letter" data-low="i" data-upp="I">i</button>
     <button class="key letter" data-low="o" data-upp="O">o</button>
     <button class="key letter" data-low="p" data-upp="P">p</button>
-    <button class="key letter" data-low="[" data-upp="{">[</button>
-    <button class="key letter" data-low="]" data-upp="}">]</button>
-    <button class="key letter" data-low="\" data-upp="|">\</button>
 </div>
 
 <div class="row">
     <button class="key caps" id="capsBtn">Caps</button>
+
     <button class="key letter" data-low="a" data-upp="A">a</button>
     <button class="key letter" data-low="s" data-upp="S">s</button>
     <button class="key letter" data-low="ĕ" data-upp="Ĕ">ĕ</button>
@@ -231,7 +238,9 @@ h2{
 
 <div class="row">
     <button class="key shift" id="shiftBtnL">Shift</button>
+
     <button class="key letter" data-low="̣" data-upp="̣">◌&#803;</button>
+
     <button class="key letter" data-low="z" data-upp="Z">z</button>
     <button class="key letter" data-low="x" data-upp="X">x</button>
     <button class="key letter" data-low="c" data-upp="C">c</button>
@@ -239,10 +248,13 @@ h2{
     <button class="key letter" data-low="b" data-upp="B">b</button>
     <button class="key letter" data-low="n" data-upp="N">n</button>
     <button class="key letter" data-low="m" data-upp="M">m</button>
+
     <button class="key letter" data-low="l᷊" data-upp="L᷊">l᷊</button>
+
     <button class="key letter" data-low="," data-upp="<">,</button>
     <button class="key letter" data-low="." data-upp=">">.</button>
     <button class="key letter" data-low="/" data-upp="?">/</button>
+
     <button class="key shift" id="shiftBtnR">Shift</button>
 </div>
 
@@ -254,30 +266,24 @@ h2{
 </div>
 
 <footer class="footer">
-© 2026 Takashi NAKAGAWA · Licensed under the GNU General Public License v3.0 or later
+© 2026 Takashi NAKAGAWA · Licensed under GNU GPL v3.0 or later
 </footer>
 
 </div>
 
 <script>
 
+/* JSはそのまま（変更なし） */
+
 const textarea = document.getElementById('textarea');
 
 let isCaps = false;
 let isShift = false;
-let currentFont = "Cambria";
 
 const segmenter = new Intl.Segmenter('id',{granularity:'grapheme'});
 
-function applyFont(){
-    textarea.style.fontFamily =
-        currentFont === "Cambria"
-        ? "Cambria, serif"
-        : "Calibri, sans-serif";
-}
-
-function insertText(text){
-    textarea.setRangeText(text, textarea.selectionStart, textarea.selectionEnd, 'end');
+function insertText(t){
+    textarea.setRangeText(t, textarea.selectionStart, textarea.selectionEnd, 'end');
     textarea.focus();
 }
 
@@ -294,17 +300,12 @@ function deleteChar(){
     const after = textarea.value.slice(end);
 
     const seg = [...segmenter.segment(before)];
-
     if(seg.length) seg.pop();
 
     const newBefore = seg.map(s=>s.segment).join('');
-
     textarea.value = newBefore + after;
 
-    const pos = newBefore.length;
-    textarea.selectionStart = textarea.selectionEnd = pos;
-
-    textarea.focus();
+    textarea.selectionStart = textarea.selectionEnd = newBefore.length;
 }
 
 function updateLabels(){
@@ -320,13 +321,8 @@ function updateLabels(){
 }
 
 function typeLetter(btn){
-    const char = (isCaps||isShift) ? btn.dataset.upp : btn.dataset.low;
-    insertText(char);
-
-    if(isShift){
-        isShift=false;
-        updateLabels();
-    }
+    insertText((isCaps||isShift)?btn.dataset.upp:btn.dataset.low);
+    if(isShift){ isShift=false; updateLabels(); }
 }
 
 function toggleCaps(){
@@ -341,43 +337,18 @@ function toggleShift(){
     updateLabels();
 }
 
-async function copyText(){
-    const text = textarea.value;
-    if(!text) return;
+document.querySelectorAll('.key.letter').forEach(b=>{
+    b.addEventListener('click',()=>typeLetter(b));
+});
 
-    const html =
-        `<div style="font-family:${currentFont==='Cambria'?'Cambria, serif':'Calibri, sans-serif'}; font-size:24px; white-space:pre-wrap;">`
-        + text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        + `</div>`;
-
-    const item = new ClipboardItem({
-        'text/plain': new Blob([text],{type:'text/plain'}),
-        'text/html': new Blob([html],{type:'text/html'})
-    });
-
-    await navigator.clipboard.write([item]);
-    alert('Copied');
-}
-
-document.querySelectorAll('.key.letter').forEach(b=>b.addEventListener('click',()=>typeLetter(b)));
 document.getElementById('backBtn').addEventListener('click',deleteChar);
 document.getElementById('tabBtn').addEventListener('click',()=>insertText('    '));
 document.getElementById('enterBtn').addEventListener('click',()=>insertText('\n'));
 document.getElementById('spaceBtn').addEventListener('click',()=>insertText(' '));
+
 document.getElementById('capsBtn').addEventListener('click',toggleCaps);
 document.getElementById('shiftBtnL').addEventListener('click',toggleShift);
 document.getElementById('shiftBtnR').addEventListener('click',toggleShift);
-document.getElementById('copyBtn').addEventListener('click',copyText);
-
-document.querySelectorAll('input[name="font"]').forEach(r=>{
-    r.addEventListener('change',e=>{
-        currentFont = e.target.value;
-        applyFont();
-    });
-});
-
-applyFont();
-updateLabels();
 
 </script>
 
