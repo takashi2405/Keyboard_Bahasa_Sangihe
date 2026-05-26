@@ -358,14 +358,32 @@ function toggleShift(){
     updateLabels();
 }
 
-/* COPY (FIXED) */
+/* COPY (HTML + TEXT) */
 async function copyText(){
+
     const text = textarea.value;
     if(!text) return;
 
+    const font =
+        document.querySelector('input[name="font"]:checked').value === "Cambria"
+            ? "Cambria, serif"
+            : "Calibri, sans-serif";
+
+    const html =
+        `<div style="font-family:${font}; font-size:24px; white-space:pre-wrap;">`
+        + text.replace(/&/g,"&amp;")
+              .replace(/</g,"&lt;")
+              .replace(/>/g,"&gt;")
+        + `</div>`;
+
     try{
-        await navigator.clipboard.writeText(text);
-        alert("Copied");
+        const item = new ClipboardItem({
+            "text/plain": new Blob([text], {type:"text/plain"}),
+            "text/html": new Blob([html], {type:"text/html"})
+        });
+
+        await navigator.clipboard.write([item]);
+
     }catch(e){
         console.error(e);
     }
