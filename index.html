@@ -37,7 +37,7 @@ h2{
     color:#333;
 }
 
-/* FONT BOX */
+/* FONT SELECTOR */
 .fontBox{
     display:flex;
     align-items:center;
@@ -60,7 +60,7 @@ h2{
     accent-color:#228be6;
 }
 
-/* TEXTAREA (OUTPUT FONT CONTROL) */
+/* OUTPUT AREA */
 #textarea{
     width:100%;
     height:140px;
@@ -76,7 +76,7 @@ h2{
     font-family: Cambria, serif;
 }
 
-/* KEYBOARD UI (FIXED FONT) */
+/* KEYBOARD UI */
 .keyboard{
     margin-top:20px;
     background:#e9ecef;
@@ -138,15 +138,8 @@ h2{
     color:white !important;
 }
 
-@media (max-width:700px){
-    .key{ height:42px; font-size:14px; }
-    #textarea{ font-size:20px; }
-
-    .header{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:10px;
-    }
+.no-update{
+    font-size:22px;
 }
 
 /* FOOTER */
@@ -157,8 +150,15 @@ h2{
     text-align:center;
 }
 
-.no-update{
-    font-size:22px;
+@media (max-width:700px){
+    .key{ height:42px; font-size:14px; }
+    #textarea{ font-size:20px; }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
 }
 
 </style>
@@ -192,6 +192,7 @@ h2{
 
 <div class="keyboard">
 
+<!-- Row 1 -->
 <div class="row">
     <button class="key letter" data-low="`" data-upp="́">`</button>
     <button class="key letter" data-low="1" data-upp="!">1</button>
@@ -209,6 +210,7 @@ h2{
     <button class="key backspace" id="backBtn">Back</button>
 </div>
 
+<!-- Row 2 -->
 <div class="row">
     <button class="key tab" id="tabBtn">Tab</button>
 
@@ -228,6 +230,7 @@ h2{
     <button class="key letter" data-low="\\\\" data-upp="|">\\</button>
 </div>
 
+<!-- Row 3 -->
 <div class="row">
     <button class="key caps" id="capsBtn">Caps</button>
 
@@ -246,6 +249,7 @@ h2{
     <button class="key enter" id="enterBtn">Enter</button>
 </div>
 
+<!-- Row 4 -->
 <div class="row">
     <button class="key shift" id="shiftBtnL">Shift</button>
 
@@ -268,6 +272,7 @@ h2{
     <button class="key shift" id="shiftBtnR">Shift</button>
 </div>
 
+<!-- Row 5 -->
 <div class="row">
     <button class="key space" id="spaceBtn">Space</button>
     <button class="key action" id="copyBtn">Copy</button>
@@ -283,8 +288,7 @@ h2{
 
 <script>
 
-/* ================= CORE STATE ================= */
-
+/* STATE */
 const textarea = document.getElementById('textarea');
 
 let isCaps = false;
@@ -292,15 +296,13 @@ let isShift = false;
 
 const segmenter = new Intl.Segmenter('id',{granularity:'grapheme'});
 
-/* ================= TEXT INSERT ================= */
-
+/* INSERT */
 function insertText(t){
     textarea.setRangeText(t, textarea.selectionStart, textarea.selectionEnd, 'end');
     textarea.focus();
 }
 
-/* ================= DELETE ================= */
-
+/* DELETE */
 function deleteChar(){
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
@@ -322,8 +324,7 @@ function deleteChar(){
     textarea.selectionStart = textarea.selectionEnd = newBefore.length;
 }
 
-/* ================= KEY LABEL UPDATE ================= */
-
+/* LABEL UPDATE */
 function updateLabels(){
 
     const upper = isCaps || isShift;
@@ -338,15 +339,13 @@ function updateLabels(){
     document.getElementById('shiftBtnR').classList.toggle('active-lock',isShift);
 }
 
-/* ================= INPUT ================= */
-
+/* INPUT */
 function typeLetter(btn){
     insertText((isCaps||isShift)?btn.dataset.upp:btn.dataset.low);
     if(isShift){ isShift=false; updateLabels(); }
 }
 
-/* ================= TOGGLES ================= */
-
+/* TOGGLES */
 function toggleCaps(){
     isCaps=!isCaps;
     isShift=false;
@@ -359,8 +358,20 @@ function toggleShift(){
     updateLabels();
 }
 
-/* ================= EVENTS ================= */
+/* COPY (FIXED) */
+async function copyText(){
+    const text = textarea.value;
+    if(!text) return;
 
+    try{
+        await navigator.clipboard.writeText(text);
+        alert("Copied");
+    }catch(e){
+        console.error(e);
+    }
+}
+
+/* EVENTS */
 document.querySelectorAll('.key.letter').forEach(b=>{
     b.addEventListener('click',()=>typeLetter(b));
 });
@@ -373,6 +384,18 @@ document.getElementById('spaceBtn').addEventListener('click',()=>insertText(' ')
 document.getElementById('capsBtn').addEventListener('click',toggleCaps);
 document.getElementById('shiftBtnL').addEventListener('click',toggleShift);
 document.getElementById('shiftBtnR').addEventListener('click',toggleShift);
+
+document.getElementById('copyBtn').addEventListener('click',copyText);
+
+/* FONT SWITCH */
+document.querySelectorAll('input[name="font"]').forEach(r=>{
+    r.addEventListener('change',e=>{
+        textarea.style.fontFamily =
+            e.target.value === "Cambria"
+                ? "Cambria, serif"
+                : "Calibri, sans-serif";
+    });
+});
 
 </script>
 
