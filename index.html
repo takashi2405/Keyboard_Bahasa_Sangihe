@@ -211,8 +211,8 @@ h2{
     <button class="key letter" data-low="[" data-upp="{">[</button>
     <button class="key letter" data-low="]" data-upp="}">]</button>
 
-    <!-- FIXED BACKSLASH -->
-    <button class="key letter" data-low="\" data-upp="|">\</button>
+    <!-- BACKSLASH (FIXED) -->
+    <button class="key letter" data-key="BACKSLASH">\</button>
 </div>
 
 <!-- Row 3 -->
@@ -314,8 +314,15 @@ function updateLabels(){
     const upper = isCaps || isShift;
 
     document.querySelectorAll('.key.letter').forEach(b=>{
-        if(b.classList.contains('no-update')) return;
+        if(b.dataset.key === "BACKSLASH") return;
+
         b.textContent = upper ? b.dataset.upp : b.dataset.low;
+    });
+
+    document.querySelectorAll('.key.letter').forEach(b=>{
+        if(b.dataset.key === "BACKSLASH"){
+            b.textContent = "\\";
+        }
     });
 
     document.getElementById('capsBtn').classList.toggle('active-lock',isCaps);
@@ -325,8 +332,18 @@ function updateLabels(){
 
 /* INPUT */
 function typeLetter(btn){
+
+    if(btn.dataset.key === "BACKSLASH"){
+        insertText("\\");
+        return;
+    }
+
     insertText((isCaps||isShift)?btn.dataset.upp:btn.dataset.low);
-    if(isShift){ isShift=false; updateLabels(); }
+
+    if(isShift){
+        isShift=false;
+        updateLabels();
+    }
 }
 
 /* TOGGLE */
@@ -342,7 +359,7 @@ function toggleShift(){
     updateLabels();
 }
 
-/* COPY (font preserved, size not forced) */
+/* COPY */
 async function copyText(){
 
     const text = textarea.value;
