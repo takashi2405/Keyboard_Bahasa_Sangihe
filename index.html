@@ -62,4 +62,526 @@ h2{
 
 /* OUTPUT */
 #textarea{
-    width:
+    width:100%;
+    height:140px;
+    padding:12px;
+    box-sizing:border-box;
+    border:2px solid #ccd0d5;
+    border-radius:6px;
+    resize:vertical;
+
+    font-size:24px;
+    line-height:1.5;
+
+    font-family:Cambria, serif;
+}
+
+/* KEYBOARD */
+.keyboard{
+    margin-top:20px;
+    background:#e9ecef;
+    padding:10px;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+
+    font-family:"Noto Sans", sans-serif;
+}
+
+.row{
+    display:flex;
+    gap:6px;
+}
+
+.key{
+    flex:1;
+    height:50px;
+
+    border:1px solid #adb5bd;
+    border-radius:4px;
+
+    background:white;
+    cursor:pointer;
+
+    font-size:18px;
+    font-weight:bold;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    user-select:none;
+}
+
+.key:hover{
+    background:#f1f3f5;
+}
+
+.key:active{
+    background:#dee2e6;
+}
+
+.key.backspace{
+    flex:2;
+    background:#adb5bd;
+    color:white;
+}
+
+.key.enter{
+    flex:2.2;
+    background:#adb5bd;
+    color:white;
+}
+
+.key.tab{
+    flex:1.5;
+    background:#cfd4da;
+    font-size:14px;
+}
+
+.key.caps{
+    flex:1.2;
+    background:#cfd4da;
+    font-size:14px;
+}
+
+.key.shift{
+    flex:1.4;
+    background:#cfd4da;
+    font-size:14px;
+}
+
+.key.space{
+    flex:8;
+}
+
+.key.action{
+    background:#4dabf7;
+    color:white;
+}
+
+.active-lock{
+    background:#228be6 !important;
+    color:white !important;
+}
+
+.no-update{
+    font-size:22px;
+}
+
+/* FOOTER */
+.footer{
+    margin-top:12px;
+    font-size:11px;
+    color:#666;
+    text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+    <h2>Keyboard Bahasa Sangihe</h2>
+
+    <div class="fontBox">
+
+        <span>Font:</span>
+
+        <label>
+            <input type="radio" name="font" value="Cambria" checked>
+            Cambria (Serif)
+        </label>
+
+        <label>
+            <input type="radio" name="font" value="Calibri">
+            Calibri (Sans-serif)
+        </label>
+
+    </div>
+
+</div>
+
+<textarea id="textarea" placeholder="Bohẹko sini ... / Ketik di sini..."></textarea>
+
+<div class="keyboard">
+
+<!-- ROW 1 -->
+<div class="row">
+
+    <button class="key letter" data-low="́" data-upp="~">́</button>
+
+    <button class="key letter" data-low="1" data-upp="!">1</button>
+    <button class="key letter" data-low="2" data-upp="@">2</button>
+    <button class="key letter" data-low="3" data-upp="#">3</button>
+    <button class="key letter" data-low="4" data-upp="$">4</button>
+    <button class="key letter" data-low="5" data-upp="%">5</button>
+    <button class="key letter" data-low="6" data-upp="^">6</button>
+    <button class="key letter" data-low="7" data-upp="&">7</button>
+    <button class="key letter" data-low="8" data-upp="*">8</button>
+    <button class="key letter" data-low="9" data-upp="(">9</button>
+    <button class="key letter" data-low="0" data-upp=")">0</button>
+
+    <button class="key letter" data-low="-" data-upp="_">-</button>
+    <button class="key letter" data-low="=" data-upp="+">=</button>
+
+    <button class="key backspace" id="backBtn">Back</button>
+
+</div>
+
+<!-- ROW 2 -->
+<div class="row">
+
+    <button class="key tab" id="tabBtn">Tab</button>
+
+    <button class="key letter" data-low="q" data-upp="Q">q</button>
+    <button class="key letter" data-low="w" data-upp="W">w</button>
+    <button class="key letter" data-low="e" data-upp="E">e</button>
+    <button class="key letter" data-low="r" data-upp="R">r</button>
+    <button class="key letter" data-low="t" data-upp="T">t</button>
+    <button class="key letter" data-low="y" data-upp="Y">y</button>
+    <button class="key letter" data-low="u" data-upp="U">u</button>
+    <button class="key letter" data-low="i" data-upp="I">i</button>
+    <button class="key letter" data-low="o" data-upp="O">o</button>
+    <button class="key letter" data-low="p" data-upp="P">p</button>
+
+    <button class="key letter" data-low="[" data-upp="{">[</button>
+    <button class="key letter" data-low="]" data-upp="}">]</button>
+
+    <!-- BACKSLASH -->
+    <button class="key letter" data-key="BACKSLASH">\</button>
+
+</div>
+
+<!-- ROW 3 -->
+<div class="row">
+
+    <button class="key caps" id="capsBtn">Caps</button>
+
+    <button class="key letter" data-low="a" data-upp="A">a</button>
+    <button class="key letter" data-low="s" data-upp="S">s</button>
+
+    <button class="key letter" data-low="ĕ" data-upp="Ĕ">ĕ</button>
+
+    <button class="key letter" data-low="d" data-upp="D">d</button>
+    <button class="key letter" data-low="f" data-upp="F">f</button>
+    <button class="key letter" data-low="g" data-upp="G">g</button>
+    <button class="key letter" data-low="h" data-upp="H">h</button>
+    <button class="key letter" data-low="j" data-upp="J">j</button>
+    <button class="key letter" data-low="k" data-upp="K">k</button>
+    <button class="key letter" data-low="l" data-upp="L">l</button>
+
+    <button class="key letter" data-low=";" data-upp=":">;</button>
+    <button class="key letter" data-low="'" data-upp='"'>'</button>
+
+    <button class="key enter" id="enterBtn">Enter</button>
+
+</div>
+
+<!-- ROW 4 -->
+<div class="row">
+
+    <button class="key shift" id="shiftBtnL">Shift</button>
+
+    <button class="key letter no-update" data-low="̣" data-upp="̣">◌&#803;</button>
+
+    <button class="key letter" data-low="z" data-upp="Z">z</button>
+    <button class="key letter" data-low="x" data-upp="X">x</button>
+    <button class="key letter" data-low="c" data-upp="C">c</button>
+    <button class="key letter" data-low="v" data-upp="V">v</button>
+    <button class="key letter" data-low="b" data-upp="B">b</button>
+    <button class="key letter" data-low="n" data-upp="N">n</button>
+    <button class="key letter" data-low="m" data-upp="M">m</button>
+
+    <button class="key letter" data-low="l᷊" data-upp="L᷊">l᷊</button>
+
+    <button class="key letter" data-low="," data-upp="<">,</button>
+    <button class="key letter" data-low="." data-upp=">">.</button>
+    <button class="key letter" data-low="/" data-upp="?">/</button>
+
+    <button class="key shift" id="shiftBtnR">Shift</button>
+
+</div>
+
+<!-- ROW 5 -->
+<div class="row">
+
+    <button class="key space" id="spaceBtn">Space</button>
+    <button class="key action" id="copyBtn">Copy</button>
+
+</div>
+
+</div>
+
+<footer class="footer">
+© 2026 Takashi NAKAGAWA · Licensed under GNU GPL v3.0 or later
+</footer>
+
+</div>
+
+<script>
+
+const textarea = document.getElementById('textarea');
+
+let isCaps = false;
+let isShift = false;
+
+const segmenter =
+    new Intl.Segmenter('id',{granularity:'grapheme'});
+
+/* INSERT */
+function insertText(text){
+
+    textarea.setRangeText(
+        text,
+        textarea.selectionStart,
+        textarea.selectionEnd,
+        'end'
+    );
+
+    textarea.focus();
+}
+
+/* DELETE */
+function deleteChar(){
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+
+    if(start !== end){
+
+        textarea.setRangeText(
+            '',
+            start,
+            end,
+            'start'
+        );
+
+        return;
+    }
+
+    const before = textarea.value.slice(0,start);
+    const after = textarea.value.slice(end);
+
+    const seg = [...segmenter.segment(before)];
+
+    if(seg.length) seg.pop();
+
+    const newBefore =
+        seg.map(s=>s.segment).join('');
+
+    textarea.value = newBefore + after;
+
+    const pos = newBefore.length;
+
+    textarea.selectionStart = pos;
+    textarea.selectionEnd = pos;
+
+    textarea.focus();
+}
+
+/* LABEL UPDATE */
+function updateLabels(){
+
+    const upper = isCaps || isShift;
+
+    document.querySelectorAll('.key.letter')
+    .forEach(btn=>{
+
+        /* KEEP DOT BELOW */
+        if(btn.classList.contains('no-update')){
+            return;
+        }
+
+        /* BACKSLASH SPECIAL */
+        if(btn.dataset.key === "BACKSLASH"){
+
+            btn.textContent =
+                upper ? "|" : "\\";
+
+            return;
+        }
+
+        btn.textContent =
+            upper
+            ? btn.dataset.upp
+            : btn.dataset.low;
+    });
+
+    document.getElementById('capsBtn')
+        .classList.toggle('active-lock',isCaps);
+
+    document.getElementById('shiftBtnL')
+        .classList.toggle('active-lock',isShift);
+
+    document.getElementById('shiftBtnR')
+        .classList.toggle('active-lock',isShift);
+}
+
+/* INPUT */
+function typeLetter(btn){
+
+    /* BACKSLASH SPECIAL */
+    if(btn.dataset.key === "BACKSLASH"){
+
+        insertText(
+            (isCaps || isShift)
+            ? "|"
+            : "\\"
+        );
+
+        if(isShift){
+
+            isShift = false;
+            updateLabels();
+        }
+
+        return;
+    }
+
+    const char =
+        (isCaps || isShift)
+        ? btn.dataset.upp
+        : btn.dataset.low;
+
+    insertText(char);
+
+    if(isShift){
+
+        isShift = false;
+        updateLabels();
+    }
+}
+
+/* TOGGLE */
+function toggleCaps(){
+
+    isCaps = !isCaps;
+    isShift = false;
+
+    updateLabels();
+}
+
+function toggleShift(){
+
+    isShift = !isShift;
+    isCaps = false;
+
+    updateLabels();
+}
+
+/* COPY */
+async function copyText(){
+
+    const text = textarea.value;
+
+    if(!text) return;
+
+    const font =
+        document.querySelector(
+            'input[name="font"]:checked'
+        ).value === "Cambria"
+        ? "Cambria, serif"
+        : "Calibri, sans-serif";
+
+    const html =
+        `<div style="font-family:${font}; white-space:pre-wrap;">`
+        + text
+            .replace(/&/g,'&amp;')
+            .replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;')
+        + `</div>`;
+
+    try{
+
+        const item = new ClipboardItem({
+
+            'text/plain':
+                new Blob(
+                    [text],
+                    {type:'text/plain'}
+                ),
+
+            'text/html':
+                new Blob(
+                    [html],
+                    {type:'text/html'}
+                )
+        });
+
+        await navigator.clipboard.write([item]);
+
+    }catch(e){
+
+        console.error(e);
+    }
+}
+
+/* EVENTS */
+document.querySelectorAll('.key.letter')
+.forEach(btn=>{
+
+    btn.addEventListener(
+        'click',
+        ()=>typeLetter(btn)
+    );
+});
+
+document.getElementById('backBtn')
+.addEventListener('click',deleteChar);
+
+document.getElementById('tabBtn')
+.addEventListener(
+    'click',
+    ()=>insertText('    ')
+);
+
+document.getElementById('enterBtn')
+.addEventListener(
+    'click',
+    ()=>insertText('\n')
+);
+
+document.getElementById('spaceBtn')
+.addEventListener(
+    'click',
+    ()=>insertText(' ')
+);
+
+document.getElementById('capsBtn')
+.addEventListener('click',toggleCaps);
+
+document.getElementById('shiftBtnL')
+.addEventListener('click',toggleShift);
+
+document.getElementById('shiftBtnR')
+.addEventListener('click',toggleShift);
+
+document.getElementById('copyBtn')
+.addEventListener('click',copyText);
+
+/* FONT SWITCH */
+document.querySelectorAll('input[name="font"]')
+.forEach(r=>{
+
+    r.addEventListener('change',e=>{
+
+        textarea.style.fontFamily =
+            e.target.value === "Cambria"
+            ? "Cambria, serif"
+            : "Calibri, sans-serif";
+    });
+});
+
+/* INIT */
+updateLabels();
+
+</script>
+
+</body>
+</html>
